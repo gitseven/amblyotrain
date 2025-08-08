@@ -19,14 +19,30 @@ const InitializeScene = () => {
 const SetLeftArrowEvent = () => {
     const leftArrowClickEvent = new CustomEvent('Game:LeftArrowClick');
     const leftArrow = document.querySelector(".arrow.left");
+    
+    // Mouse events
     leftArrow.addEventListener("click", () => {
+        window.dispatchEvent(leftArrowClickEvent);
+    });
+    
+    // Touch events
+    leftArrow.addEventListener("touchstart", (e) => {
+        e.preventDefault();
         window.dispatchEvent(leftArrowClickEvent);
     });
 };
 const SetRightArrowEvent = () => {
     const rightArrowClickEvent = new CustomEvent('Game:RightArrowClick');
     const rightArrow = document.querySelector(".arrow.right");
+    
+    // Mouse events
     rightArrow.addEventListener("click", () => {
+        window.dispatchEvent(rightArrowClickEvent);
+    });
+    
+    // Touch events
+    rightArrow.addEventListener("touchstart", (e) => {
+        e.preventDefault();
         window.dispatchEvent(rightArrowClickEvent);
     });
 };
@@ -37,9 +53,15 @@ const SetVelocityChangeEvent = () => {
             velocity: velocitySlider.value
         }
     });
+    
+    // Mouse and touch events
     velocitySlider.addEventListener("input", () => {
         velocityValueChanged.detail.velocity = velocitySlider.value;
         window.dispatchEvent(velocityValueChanged);
+    });
+    
+    velocitySlider.addEventListener("touchstart", (e) => {
+        e.preventDefault();
     });
 };
 const SetRadiusChangeEvent = () => {
@@ -49,9 +71,15 @@ const SetRadiusChangeEvent = () => {
             radius: radiusSlider.value
         }
     });
+    
+    // Mouse and touch events
     radiusSlider.addEventListener("input", () => {
         radiusValueChanged.detail.radius = radiusSlider.value;
         window.dispatchEvent(radiusValueChanged);
+    });
+    
+    radiusSlider.addEventListener("touchstart", (e) => {
+        e.preventDefault();
     });
 };
 const SetColorChangeEvent = () => {
@@ -61,9 +89,15 @@ const SetColorChangeEvent = () => {
             hue: colorSlider.value
         }
     });
+    
+    // Mouse and touch events
     colorSlider.addEventListener("input", () => {
         colorValueChanged.detail.hue = colorSlider.value;
         window.dispatchEvent(colorValueChanged);
+    });
+    
+    colorSlider.addEventListener("touchstart", (e) => {
+        e.preventDefault();
     });
 };
 

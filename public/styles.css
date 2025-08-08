@@ -57,6 +57,66 @@ border-color: transparent transparent transparent #ffffff;
 .arrow:hover {
 transform: scale(1.2);
 }
+
+/* Touch-friendly controls */
+.arrow {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+/* Make sliders more touch-friendly */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 20px;
+    border-radius: 10px;
+    background: #333;
+    outline: none;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+    border: none;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    .arrow {
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    input[type="range"] {
+        height: 25px;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+        width: 30px;
+        height: 30px;
+    }
+    
+    input[type="range"]::-moz-range-thumb {
+        width: 30px;
+        height: 30px;
+    }
+}
   
 .changeroutine 
 {
