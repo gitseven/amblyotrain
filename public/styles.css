@@ -28,6 +28,37 @@ body {
     pointer-events: auto;
     z-index: 1000;
 }
+
+.control-btn {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.7);
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: transform 0.1s ease, background-color 0.1s ease;
+    z-index: 1001;
+}
+
+.control-btn:hover {
+    background-color: rgba(255,255,255,0.2);
+    transform: scale(1.1);
+}
+
+.control-btn:active {
+    transform: scale(0.95);
+    background-color: rgba(255,255,255,0.3);
+}
 .dot 
 {
     --x: 50;
@@ -178,10 +209,6 @@ input[type="range"]::-moz-range-thumb:active {
         top: 15vh;
     }
     
-    #velocitytext, #sizetext {
-        top: 15vh;
-    }
-    
     .left, .right {
         top: 10vh;
     }
@@ -198,23 +225,11 @@ input[type="range"]::-moz-range-thumb:active {
         top: calc(85vh - 80px);
     }
     
-    #colortext {
-        top: calc(85vh - 80px);
-    }
-    
     #bgcolorslider {
         top: calc(85vh - 60px);
     }
     
-    #bgcolortext {
-        top: calc(85vh - 60px);
-    }
-    
     #bgintensityslider {
-        top: calc(85vh - 10px);
-    }
-    
-    #bgintensitytext {
         top: calc(85vh - 10px);
     }
 }
@@ -326,15 +341,6 @@ input[type="range"]::-moz-range-thumb:active {
 }
 
 
-#sizeslider
-{
-    position:absolute;
-    top: 15vh;
-    width: 120px;
-    right: 5vw;
-    z-index: 1001;
-}
-
 #sizetext
 {
     font-family: Arial, Helvetica, sans-serif;
@@ -345,10 +351,10 @@ input[type="range"]::-moz-range-thumb:active {
     font-size: 16px;
     color: #ffffff;
     text-shadow: 3px 3px 6px rgba(0,0,0,1), 0 0 15px rgba(0,0,0,0.9), 0 0 20px rgba(255,255,255,0.3);
-    -webkit-user-select: none;  /* Chrome, Safari, Opera */
-    -moz-user-select: none;     /* Firefox */
-    -ms-user-select: none;      /* IE 10+ */
-    user-select: none;          /* Standard syntax */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     width: 120px;
     white-space: nowrap;
     background-color: rgba(0,0,0,0.7);
@@ -357,14 +363,19 @@ input[type="range"]::-moz-range-thumb:active {
     z-index: 1001;
 }
 
-#colorslider
+#sizeminus
 {
-    position:absolute;
-    top: calc(90vh - 80px);
-    width: 120px;
-    left: 5vw;
-    z-index: 1001;
+    top: 15vh;
+    right: calc(5vw + 60px);
 }
+
+#sizeplus
+{
+    top: 15vh;
+    right: 5vw;
+}
+
+
 
 #colortext
 {
@@ -376,10 +387,10 @@ input[type="range"]::-moz-range-thumb:active {
     font-size: 16px;
     color: #ffffff;
     text-shadow: 3px 3px 6px rgba(0,0,0,1), 0 0 15px rgba(0,0,0,0.9), 0 0 20px rgba(255,255,255,0.3);
-    -webkit-user-select: none;  /* Chrome, Safari, Opera */
-    -moz-user-select: none;     /* Firefox */
-    -ms-user-select: none;      /* IE 10+ */
-    user-select: none;          /* Standard syntax */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     width: 150px;
     white-space: nowrap;
     background-color: rgba(0,0,0,0.7);
@@ -388,14 +399,19 @@ input[type="range"]::-moz-range-thumb:active {
     z-index: 1001;
 }
 
-#bgcolorslider
+#colorminus
 {
-    position:absolute;
-    top: calc(90vh - 60px);
-    width: 120px;
-    right: 5vw;
-    z-index: 1001;
+    top: calc(90vh - 80px);
+    left: calc(5vw + 160px);
 }
+
+#colorplus
+{
+    top: calc(90vh - 80px);
+    left: calc(5vw + 220px);
+}
+
+
 
 #bgcolortext
 {
@@ -407,10 +423,10 @@ input[type="range"]::-moz-range-thumb:active {
     font-size: 16px;
     color: #ffffff;
     text-shadow: 3px 3px 6px rgba(0,0,0,1), 0 0 15px rgba(0,0,0,0.9), 0 0 20px rgba(255,255,255,0.3);
-    -webkit-user-select: none;  /* Chrome, Safari, Opera */
-    -moz-user-select: none;     /* Firefox */
-    -ms-user-select: none;      /* IE 10+ */
-    user-select: none;          /* Standard syntax */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     width: 150px;
     white-space: nowrap;
     background-color: rgba(0,0,0,0.7);
@@ -420,15 +436,19 @@ input[type="range"]::-moz-range-thumb:active {
     z-index: 1001;
 }
 
-#bgintensityslider
+#bgcolorminus
 {
-    position:absolute;
-    top: calc(90vh - 10px);
-    width: 120px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1001;
+    top: calc(90vh - 60px);
+    right: calc(5vw + 160px);
 }
+
+#bgcolorplus
+{
+    top: calc(90vh - 60px);
+    right: calc(5vw + 220px);
+}
+
+
 
 #bgintensitytext
 {
@@ -441,10 +461,10 @@ input[type="range"]::-moz-range-thumb:active {
     font-size: 16px;
     color: #ffffff;
     text-shadow: 3px 3px 6px rgba(0,0,0,1), 0 0 15px rgba(0,0,0,0.9), 0 0 20px rgba(255,255,255,0.3);
-    -webkit-user-select: none;  /* Chrome, Safari, Opera */
-    -moz-user-select: none;     /* Firefox */
-    -ms-user-select: none;      /* IE 10+ */
-    user-select: none;          /* Standard syntax */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     width: 180px;
     white-space: nowrap;
     text-align: center;
@@ -454,14 +474,19 @@ input[type="range"]::-moz-range-thumb:active {
     z-index: 1001;
 }
 
-#velocityslider
+#bgintensityminus
 {
-    position:absolute;
-    top: 10vh;
-    width: 120px;
-    right: 5vw;
-    z-index: 1001;
+    top: calc(90vh - 10px);
+    left: calc(50% - 100px);
 }
+
+#bgintensityplus
+{
+    top: calc(90vh - 10px);
+    left: calc(50% + 50px);
+}
+
+
 
 #velocitytext
 {
@@ -473,10 +498,10 @@ input[type="range"]::-moz-range-thumb:active {
     font-size: 16px;
     color: #ffffff;
     text-shadow: 3px 3px 6px rgba(0,0,0,1), 0 0 15px rgba(0,0,0,0.9), 0 0 20px rgba(255,255,255,0.3);
-    -webkit-user-select: none;  /* Chrome, Safari, Opera */
-    -moz-user-select: none;     /* Firefox */
-    -ms-user-select: none;      /* IE 10+ */
-    user-select: none;          /* Standard syntax */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     width: 120px;
     white-space: nowrap;
     background-color: rgba(0,0,0,0.7);
@@ -484,6 +509,20 @@ input[type="range"]::-moz-range-thumb:active {
     border-radius: 5px;
     z-index: 1001;
 }
+
+#velocityminus
+{
+    top: 10vh;
+    right: calc(5vw + 60px);
+}
+
+#velocityplus
+{
+    top: 10vh;
+    right: 5vw;
+}
+
+
 
 .backvideoytexplanation
 {

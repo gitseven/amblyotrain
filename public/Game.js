@@ -10,50 +10,40 @@ const LoadSavedSettings = () => {
     const savedBgIntensity = localStorage.getItem('bgIntensity');
     
     // If no saved settings exist, save the current defaults
-    if (!savedVelocity) localStorage.setItem('velocity', document.getElementById("velocityslider").value);
-    if (!savedSize) localStorage.setItem('size', document.getElementById("sizeslider").value);
-    if (!savedBallColor) localStorage.setItem('ballColor', document.getElementById("colorslider").value);
-    if (!savedBgColor) localStorage.setItem('bgColor', document.getElementById("bgcolorslider").value);
-    if (!savedBgIntensity) localStorage.setItem('bgIntensity', document.getElementById("bgintensityslider").value);
+    if (!savedVelocity) localStorage.setItem('velocity', '3');
+    if (!savedSize) localStorage.setItem('size', '2');
+    if (!savedBallColor) localStorage.setItem('ballColor', '0');
+    if (!savedBgColor) localStorage.setItem('bgColor', '240');
+    if (!savedBgIntensity) localStorage.setItem('bgIntensity', '10');
     
-    // Apply saved settings to sliders
+    // Apply saved settings by dispatching events
     if (savedVelocity) {
-        document.getElementById("velocityslider").value = savedVelocity;
-        // Trigger the event to apply the setting
         window.dispatchEvent(new CustomEvent('Game:VelocityValueChanged', {
-            detail: { velocity: savedVelocity }
+            detail: { velocity: parseFloat(savedVelocity) }
         }));
     }
     
     if (savedSize) {
-        document.getElementById("sizeslider").value = savedSize;
-        // Trigger the event to apply the setting
         window.dispatchEvent(new CustomEvent('Game:RadiusValueChanged', {
-            detail: { radius: savedSize }
+            detail: { radius: parseFloat(savedSize) }
         }));
     }
     
     if (savedBallColor) {
-        document.getElementById("colorslider").value = savedBallColor;
-        // Trigger the event to apply the setting
         window.dispatchEvent(new CustomEvent('Game:ColorValueChanged', {
-            detail: { hue: savedBallColor }
+            detail: { hue: parseInt(savedBallColor) }
         }));
     }
     
     if (savedBgColor) {
-        document.getElementById("bgcolorslider").value = savedBgColor;
-        // Trigger the event to apply the setting
         window.dispatchEvent(new CustomEvent('Game:BackgroundColorValueChanged', {
-            detail: { hue: savedBgColor }
+            detail: { hue: parseInt(savedBgColor) }
         }));
     }
     
     if (savedBgIntensity) {
-        document.getElementById("bgintensityslider").value = savedBgIntensity;
-        // Trigger the event to apply the setting
         window.dispatchEvent(new CustomEvent('Game:BackgroundIntensityValueChanged', {
-            detail: { intensity: savedBgIntensity }
+            detail: { intensity: parseInt(savedBgIntensity) }
         }));
     }
 };
@@ -121,160 +111,180 @@ const SetRightArrowEvent = () => {
     });
 };
 const SetVelocityChangeEvent = () => {
-    const velocitySlider = document.getElementById("velocityslider");
-    const velocityValueChanged = new CustomEvent('Game:VelocityValueChanged', {
-        detail: {
-            velocity: velocitySlider.value
-        }
+    let currentVelocity = parseFloat(localStorage.getItem('velocity')) || 3;
+    const velocityMinus = document.getElementById("velocityminus");
+    const velocityPlus = document.getElementById("velocityplus");
+    
+    const updateVelocity = (newVelocity) => {
+        currentVelocity = Math.max(0.25, Math.min(25, newVelocity));
+        localStorage.setItem('velocity', currentVelocity.toString());
+        window.dispatchEvent(new CustomEvent('Game:VelocityValueChanged', {
+            detail: { velocity: currentVelocity }
+        }));
+    };
+    
+    // Minus button
+    velocityMinus.addEventListener("click", () => {
+        updateVelocity(currentVelocity - 0.5);
     });
     
-    // Mouse and touch events
-    velocitySlider.addEventListener("input", () => {
-        velocityValueChanged.detail.velocity = velocitySlider.value;
-        window.dispatchEvent(velocityValueChanged);
-        // Save to localStorage
-        localStorage.setItem('velocity', velocitySlider.value);
-    });
-    
-    velocitySlider.addEventListener("touchstart", (e) => {
+    velocityMinus.addEventListener("touchstart", (e) => {
         e.preventDefault();
         e.stopPropagation();
+        updateVelocity(currentVelocity - 0.5);
     });
     
-    velocitySlider.addEventListener("touchend", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+    // Plus button
+    velocityPlus.addEventListener("click", () => {
+        updateVelocity(currentVelocity + 0.5);
     });
     
-    velocitySlider.addEventListener("touchmove", (e) => {
+    velocityPlus.addEventListener("touchstart", (e) => {
         e.preventDefault();
         e.stopPropagation();
+        updateVelocity(currentVelocity + 0.5);
     });
 };
 const SetRadiusChangeEvent = () => {
-    const radiusSlider = document.getElementById("sizeslider");
-    const radiusValueChanged = new CustomEvent('Game:RadiusValueChanged', {
-        detail: {
-            radius: radiusSlider.value
-        }
+    let currentSize = parseFloat(localStorage.getItem('size')) || 2;
+    const sizeMinus = document.getElementById("sizeminus");
+    const sizePlus = document.getElementById("sizeplus");
+    
+    const updateSize = (newSize) => {
+        currentSize = Math.max(0.01, Math.min(10, newSize));
+        localStorage.setItem('size', currentSize.toString());
+        window.dispatchEvent(new CustomEvent('Game:RadiusValueChanged', {
+            detail: { radius: currentSize }
+        }));
+    };
+    
+    // Minus button
+    sizeMinus.addEventListener("click", () => {
+        updateSize(currentSize - 0.5);
     });
     
-    // Mouse and touch events
-    radiusSlider.addEventListener("input", () => {
-        radiusValueChanged.detail.radius = radiusSlider.value;
-        window.dispatchEvent(radiusValueChanged);
-        // Save to localStorage
-        localStorage.setItem('size', radiusSlider.value);
-    });
-    
-    radiusSlider.addEventListener("touchstart", (e) => {
+    sizeMinus.addEventListener("touchstart", (e) => {
         e.preventDefault();
         e.stopPropagation();
+        updateSize(currentSize - 0.5);
     });
     
-    radiusSlider.addEventListener("touchend", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+    // Plus button
+    sizePlus.addEventListener("click", () => {
+        updateSize(currentSize + 0.5);
     });
     
-    radiusSlider.addEventListener("touchmove", (e) => {
+    sizePlus.addEventListener("touchstart", (e) => {
         e.preventDefault();
         e.stopPropagation();
+        updateSize(currentSize + 0.5);
     });
 };
 const SetColorChangeEvent = () => {
-    const colorSlider = document.getElementById("colorslider");
-    const colorValueChanged = new CustomEvent('Game:ColorValueChanged', {
-        detail: {
-            hue: colorSlider.value
-        }
+    let currentColor = parseInt(localStorage.getItem('ballColor')) || 0;
+    const colorMinus = document.getElementById("colorminus");
+    const colorPlus = document.getElementById("colorplus");
+    
+    const updateColor = (newColor) => {
+        currentColor = Math.max(0, Math.min(360, newColor));
+        localStorage.setItem('ballColor', currentColor.toString());
+        window.dispatchEvent(new CustomEvent('Game:ColorValueChanged', {
+            detail: { hue: currentColor }
+        }));
+    };
+    
+    // Minus button
+    colorMinus.addEventListener("click", () => {
+        updateColor(currentColor - 30);
     });
     
-    // Mouse and touch events
-    colorSlider.addEventListener("input", () => {
-        colorValueChanged.detail.hue = colorSlider.value;
-        window.dispatchEvent(colorValueChanged);
-        // Save to localStorage
-        localStorage.setItem('ballColor', colorSlider.value);
-    });
-    
-    colorSlider.addEventListener("touchstart", (e) => {
+    colorMinus.addEventListener("touchstart", (e) => {
         e.preventDefault();
         e.stopPropagation();
+        updateColor(currentColor - 30);
     });
     
-    colorSlider.addEventListener("touchend", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+    // Plus button
+    colorPlus.addEventListener("click", () => {
+        updateColor(currentColor + 30);
     });
     
-    colorSlider.addEventListener("touchmove", (e) => {
+    colorPlus.addEventListener("touchstart", (e) => {
         e.preventDefault();
         e.stopPropagation();
+        updateColor(currentColor + 30);
     });
 };
 
 const SetBackgroundColorChangeEvent = () => {
-    const bgColorSlider = document.getElementById("bgcolorslider");
-    const bgColorValueChanged = new CustomEvent('Game:BackgroundColorValueChanged', {
-        detail: {
-            hue: bgColorSlider.value
-        }
+    let currentBgColor = parseInt(localStorage.getItem('bgColor')) || 240;
+    const bgColorMinus = document.getElementById("bgcolorminus");
+    const bgColorPlus = document.getElementById("bgcolorplus");
+    
+    const updateBgColor = (newColor) => {
+        currentBgColor = Math.max(0, Math.min(360, newColor));
+        localStorage.setItem('bgColor', currentBgColor.toString());
+        window.dispatchEvent(new CustomEvent('Game:BackgroundColorValueChanged', {
+            detail: { hue: currentBgColor }
+        }));
+    };
+    
+    // Minus button
+    bgColorMinus.addEventListener("click", () => {
+        updateBgColor(currentBgColor - 30);
     });
     
-    // Mouse and touch events
-    bgColorSlider.addEventListener("input", () => {
-        bgColorValueChanged.detail.hue = bgColorSlider.value;
-        window.dispatchEvent(bgColorValueChanged);
-        // Save to localStorage
-        localStorage.setItem('bgColor', bgColorSlider.value);
-    });
-    
-    bgColorSlider.addEventListener("touchstart", (e) => {
+    bgColorMinus.addEventListener("touchstart", (e) => {
         e.preventDefault();
         e.stopPropagation();
+        updateBgColor(currentBgColor - 30);
     });
     
-    bgColorSlider.addEventListener("touchend", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+    // Plus button
+    bgColorPlus.addEventListener("click", () => {
+        updateBgColor(currentBgColor + 30);
     });
     
-    bgColorSlider.addEventListener("touchmove", (e) => {
+    bgColorPlus.addEventListener("touchstart", (e) => {
         e.preventDefault();
         e.stopPropagation();
+        updateBgColor(currentBgColor + 30);
     });
 };
 
 const SetBackgroundIntensityChangeEvent = () => {
-    const bgIntensitySlider = document.getElementById("bgintensityslider");
-    const bgIntensityValueChanged = new CustomEvent('Game:BackgroundIntensityValueChanged', {
-        detail: {
-            intensity: bgIntensitySlider.value
-        }
+    let currentIntensity = parseInt(localStorage.getItem('bgIntensity')) || 10;
+    const bgIntensityMinus = document.getElementById("bgintensityminus");
+    const bgIntensityPlus = document.getElementById("bgintensityplus");
+    
+    const updateIntensity = (newIntensity) => {
+        currentIntensity = Math.max(5, Math.min(50, newIntensity));
+        localStorage.setItem('bgIntensity', currentIntensity.toString());
+        window.dispatchEvent(new CustomEvent('Game:BackgroundIntensityValueChanged', {
+            detail: { intensity: currentIntensity }
+        }));
+    };
+    
+    // Minus button
+    bgIntensityMinus.addEventListener("click", () => {
+        updateIntensity(currentIntensity - 5);
     });
     
-    // Mouse and touch events
-    bgIntensitySlider.addEventListener("input", () => {
-        bgIntensityValueChanged.detail.intensity = bgIntensitySlider.value;
-        window.dispatchEvent(bgIntensityValueChanged);
-        // Save to localStorage
-        localStorage.setItem('bgIntensity', bgIntensitySlider.value);
-    });
-    
-    bgIntensitySlider.addEventListener("touchstart", (e) => {
+    bgIntensityMinus.addEventListener("touchstart", (e) => {
         e.preventDefault();
         e.stopPropagation();
+        updateIntensity(currentIntensity - 5);
     });
     
-    bgIntensitySlider.addEventListener("touchend", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
+    // Plus button
+    bgIntensityPlus.addEventListener("click", () => {
+        updateIntensity(currentIntensity + 5);
     });
     
-    bgIntensitySlider.addEventListener("touchmove", (e) => {
+    bgIntensityPlus.addEventListener("touchstart", (e) => {
         e.preventDefault();
         e.stopPropagation();
+        updateIntensity(currentIntensity + 5);
     });
 };
 

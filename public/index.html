@@ -31,16 +31,32 @@
     <div class="ui">
         <div class="arrow left"></div>
         <div class="arrow right"></div>
+        
+        <!-- Speed Controls -->
         <div id="velocitytext">Speed</div>
-        <input id="velocityslider" type="range" min="0.25" max="25" value="3" step="0.001">
+        <button id="velocityminus" class="control-btn">-</button>
+        <button id="velocityplus" class="control-btn">+</button>
+        
+        <!-- Size Controls -->
         <div id="sizetext">Size</div>
-        <input id="sizeslider" type="range" min="0.01" max="10" value="2" step="0.001">
+        <button id="sizeminus" class="control-btn">-</button>
+        <button id="sizeplus" class="control-btn">+</button>
+        
+        <!-- Ball Color Controls -->
         <div id="colortext">Ball Color</div>
-        <input id="colorslider" type="range" min="0" max="360" value="0" step="1">
-                 <div id="bgcolortext">Background Color</div>
-         <input id="bgcolorslider" type="range" min="0" max="360" value="240" step="1">
+        <button id="colorminus" class="control-btn">-</button>
+        <button id="colorplus" class="control-btn">+</button>
+        
+        <!-- Background Color Controls -->
+        <div id="bgcolortext">Background Color</div>
+        <button id="bgcolorminus" class="control-btn">-</button>
+        <button id="bgcolorplus" class="control-btn">+</button>
+        
+        <!-- Background Intensity Controls -->
         <div id="bgintensitytext">Background Intensity</div>
-        <input id="bgintensityslider" type="range" min="5" max="50" value="10" step="1">
+        <button id="bgintensityminus" class="control-btn">-</button>
+        <button id="bgintensityplus" class="control-btn">+</button>
+        
         <div class="changeroutine">Change Routine</div>
         <div class="routinename">Routine Name</div>
         <!-- <div class="backgroundvideo">Background Video</div> -->
