@@ -10,6 +10,8 @@ const InitializeScene = () => {
     SetVelocityChangeEvent();
     SetRadiusChangeEvent();
     SetColorChangeEvent();
+    SetBackgroundColorChangeEvent();
+    SetBackgroundIntensityChangeEvent();
     // SetReminderButtonEvent();
     // TODO
     // Create a component base class which has awake and update methods, and instantiate those classes instead.
@@ -97,6 +99,44 @@ const SetColorChangeEvent = () => {
     });
     
     colorSlider.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+    });
+};
+
+const SetBackgroundColorChangeEvent = () => {
+    const bgColorSlider = document.getElementById("bgcolorslider");
+    const bgColorValueChanged = new CustomEvent('Game:BackgroundColorValueChanged', {
+        detail: {
+            hue: bgColorSlider.value
+        }
+    });
+    
+    // Mouse and touch events
+    bgColorSlider.addEventListener("input", () => {
+        bgColorValueChanged.detail.hue = bgColorSlider.value;
+        window.dispatchEvent(bgColorValueChanged);
+    });
+    
+    bgColorSlider.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+    });
+};
+
+const SetBackgroundIntensityChangeEvent = () => {
+    const bgIntensitySlider = document.getElementById("bgintensityslider");
+    const bgIntensityValueChanged = new CustomEvent('Game:BackgroundIntensityValueChanged', {
+        detail: {
+            intensity: bgIntensitySlider.value
+        }
+    });
+    
+    // Mouse and touch events
+    bgIntensitySlider.addEventListener("input", () => {
+        bgIntensityValueChanged.detail.intensity = bgIntensitySlider.value;
+        window.dispatchEvent(bgIntensityValueChanged);
+    });
+    
+    bgIntensitySlider.addEventListener("touchstart", (e) => {
         e.preventDefault();
     });
 };

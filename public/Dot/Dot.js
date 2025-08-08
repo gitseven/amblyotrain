@@ -25,6 +25,12 @@ export class Dot extends GameElement {
         window.addEventListener('Game:ColorValueChanged', (event) => {
             this.Color = event.detail.hue;
         });
+        window.addEventListener('Game:BackgroundColorValueChanged', (event) => {
+            this.BackgroundColor = event.detail.hue;
+        });
+        window.addEventListener('Game:BackgroundIntensityValueChanged', (event) => {
+            this.BackgroundIntensity = event.detail.intensity;
+        });
     }
     get Radius() {
         return parseFloat(getComputedStyle(this.dotElement).getPropertyValue("--radius"));
@@ -37,6 +43,22 @@ export class Dot extends GameElement {
     }
     set Color(value) {
         this.dotElement.style.setProperty("--hue", value.toString());
+    }
+    get BackgroundColor() {
+        return parseFloat(getComputedStyle(document.body).getPropertyValue("--bg-hue"));
+    }
+    set BackgroundColor(value) {
+        document.body.style.setProperty("--bg-hue", value.toString());
+        // Update background color immediately
+        document.body.style.backgroundColor = `hsl(${value}, 70%, ${this.BackgroundIntensity}%)`;
+    }
+    get BackgroundIntensity() {
+        return parseFloat(getComputedStyle(document.body).getPropertyValue("--bg-intensity"));
+    }
+    set BackgroundIntensity(value) {
+        document.body.style.setProperty("--bg-intensity", value.toString());
+        // Update background color immediately
+        document.body.style.backgroundColor = `hsl(${this.BackgroundColor}, 70%, ${value}%)`;
     }
     DotUpdate(dTime) {
         this.dTime = dTime;
