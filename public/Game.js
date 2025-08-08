@@ -9,6 +9,7 @@ const InitializeScene = () => {
     SetRightArrowEvent();
     SetVelocityChangeEvent();
     SetRadiusChangeEvent();
+    SetColorChangeEvent();
     // SetReminderButtonEvent();
     // TODO
     // Create a component base class which has awake and update methods, and instantiate those classes instead.
@@ -53,6 +54,19 @@ const SetRadiusChangeEvent = () => {
         window.dispatchEvent(radiusValueChanged);
     });
 };
+const SetColorChangeEvent = () => {
+    const colorSlider = document.getElementById("colorslider");
+    const colorValueChanged = new CustomEvent('Game:ColorValueChanged', {
+        detail: {
+            hue: colorSlider.value
+        }
+    });
+    colorSlider.addEventListener("input", () => {
+        colorValueChanged.detail.hue = colorSlider.value;
+        window.dispatchEvent(colorValueChanged);
+    });
+};
+
 const SetReminderButtonEvent = () => {
     const notificationsClickEvent = new CustomEvent('Game:NotificationsButtonClick');
     const button = document.getElementById("notifications-button");
