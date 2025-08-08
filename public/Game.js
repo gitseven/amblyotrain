@@ -145,6 +145,11 @@ const SetVelocityChangeEvent = () => {
         e.preventDefault();
         e.stopPropagation();
     });
+    
+    velocitySlider.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    });
 };
 const SetRadiusChangeEvent = () => {
     const radiusSlider = document.getElementById("sizeslider");
@@ -171,6 +176,11 @@ const SetRadiusChangeEvent = () => {
         e.preventDefault();
         e.stopPropagation();
     });
+    
+    radiusSlider.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    });
 };
 const SetColorChangeEvent = () => {
     const colorSlider = document.getElementById("colorslider");
@@ -194,6 +204,11 @@ const SetColorChangeEvent = () => {
     });
     
     colorSlider.addEventListener("touchend", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    });
+    
+    colorSlider.addEventListener("touchmove", (e) => {
         e.preventDefault();
         e.stopPropagation();
     });
@@ -224,6 +239,11 @@ const SetBackgroundColorChangeEvent = () => {
         e.preventDefault();
         e.stopPropagation();
     });
+    
+    bgColorSlider.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    });
 };
 
 const SetBackgroundIntensityChangeEvent = () => {
@@ -248,6 +268,11 @@ const SetBackgroundIntensityChangeEvent = () => {
     });
     
     bgIntensitySlider.addEventListener("touchend", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    });
+    
+    bgIntensitySlider.addEventListener("touchmove", (e) => {
         e.preventDefault();
         e.stopPropagation();
     });
