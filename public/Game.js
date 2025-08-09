@@ -59,6 +59,7 @@ const InitializeScene = () => {
     SetColorChangeEvent();
     SetBackgroundColorChangeEvent();
     SetBackgroundIntensityChangeEvent();
+    SetGaborToggleEvent();
     // SetReminderButtonEvent();
     // TODO
     // Create a component base class which has awake and update methods, and instantiate those classes instead.
@@ -294,6 +295,20 @@ const SetBackgroundIntensityChangeEvent = () => {
         e.preventDefault();
         e.stopPropagation();
         updateIntensity(currentIntensity + 5);
+    });
+};
+
+const SetGaborToggleEvent = () => {
+    const gaborToggle = document.getElementById("gabortoggle");
+    
+    gaborToggle.addEventListener("click", () => {
+        window.dispatchEvent(new CustomEvent('Game:GaborToggle'));
+    });
+    
+    gaborToggle.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        window.dispatchEvent(new CustomEvent('Game:GaborToggle'));
     });
 };
 

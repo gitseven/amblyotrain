@@ -52,13 +52,17 @@
         <button id="bgcolorminus" class="control-btn">-</button>
         <button id="bgcolorplus" class="control-btn">+</button>
         
-        <!-- Background Intensity Controls -->
-        <div id="bgintensitytext">Background Intensity</div>
-        <button id="bgintensityminus" class="control-btn">-</button>
-        <button id="bgintensityplus" class="control-btn">+</button>
-        
-        <div class="changeroutine">Change Routine</div>
-        <div class="routinename">Routine Name</div>
+                 <!-- Background Intensity Controls -->
+         <div id="bgintensitytext">Background Intensity</div>
+         <button id="bgintensityminus" class="control-btn">-</button>
+         <button id="bgintensityplus" class="control-btn">+</button>
+         
+         <!-- Gabor Patch Toggle -->
+         <div id="gabortext">Gabor Pattern</div>
+         <button id="gabortoggle" class="control-btn">Toggle</button>
+         
+         <div class="changeroutine">Change Routine</div>
+         <div class="routinename">Routine Name</div>
         <!-- <div class="backgroundvideo">Background Video</div> -->
         <!-- <input type="checkbox" class="backgroundvideotick" checked></div> -->
         <!-- <div class="notifications">Set Daily Reminders</div>
@@ -66,8 +70,9 @@
 
     </div>
 </body>
-<script src="https://www.youtube.com/iframe_api"></script>
-<!-- <script src="./BackgroundVideo.js"></script> -->
-<script src="./Engine/GameLoop.js" type="module"></script>
-<script src="./Game.js" type="module"></script>
+ <script src="https://www.youtube.com/iframe_api"></script>
+ <!-- <script src="./BackgroundVideo.js"></script> -->
+ <script src="./GaborPatch.js"></script>
+ <script src="./Engine/GameLoop.js" type="module"></script>
+ <script src="./Game.js" type="module"></script>
 </html>

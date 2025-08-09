@@ -9,6 +9,10 @@ export class Dot extends GameElement {
         this.dTime = 0;
         this.halfScreen = 50;
         this.dotElement = dotElement;
+        
+        // Initialize Gabor patch
+        this.initializeGaborPatch();
+        
         // Set the gameElementInstance after super call
         this.gameElementInstance = this;
         // Override the parent's Update method to call our own Update
@@ -31,18 +35,52 @@ export class Dot extends GameElement {
         window.addEventListener('Game:BackgroundIntensityValueChanged', (event) => {
             this.BackgroundIntensity = event.detail.intensity;
         });
+        window.addEventListener('Game:GaborToggle', (event) => {
+            this.randomizeGaborPatch();
+        });
+    }
+    
+    initializeGaborPatch() {
+        // Create canvas for Gabor patch
+        this.gaborCanvas = document.createElement('canvas');
+        this.gaborCanvas.style.width = '100%';
+        this.gaborCanvas.style.height = '100%';
+        this.gaborCanvas.style.display = 'block';
+        
+        // Clear the dot element and add the canvas
+        this.dotElement.innerHTML = '';
+        this.dotElement.appendChild(this.gaborCanvas);
+        
+        // Create Gabor patch
+        this.gaborPatch = new GaborPatch(this.gaborCanvas, 100);
+        this.gaborPatch.setColor(0); // Start with red
+    }
+    
+    randomizeGaborPatch() {
+        if (this.gaborPatch) {
+            this.gaborPatch.randomize();
+        }
     }
     get Radius() {
         return parseFloat(getComputedStyle(this.dotElement).getPropertyValue("--radius"));
     }
     set Radius(value) {
         this.dotElement.style.setProperty("--radius", value.toString());
+        // Update Gabor patch size
+        if (this.gaborPatch) {
+            const size = Math.max(20, Math.round(value * 10)); // Convert radius to pixel size
+            this.gaborPatch.setSize(size);
+        }
     }
     get Color() {
         return parseFloat(getComputedStyle(this.dotElement).getPropertyValue("--hue"));
     }
     set Color(value) {
         this.dotElement.style.setProperty("--hue", value.toString());
+        // Update Gabor patch color
+        if (this.gaborPatch) {
+            this.gaborPatch.setColor(value);
+        }
     }
     get BackgroundColor() {
         return parseFloat(getComputedStyle(document.body).getPropertyValue("--bg-hue"));
