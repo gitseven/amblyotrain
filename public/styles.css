@@ -12,8 +12,8 @@
 body {
     margin: 0;
     --bg-hue: 240;
-    --bg-intensity: 10;
-    background-color: hsl(240, 70%, 10%);
+    --bg-intensity: 50;
+    background-color: hsl(240, 70%, 50%);
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
     touch-action: manipulation;

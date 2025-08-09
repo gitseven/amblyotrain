@@ -14,7 +14,7 @@ const LoadSavedSettings = () => {
     if (!savedSize) localStorage.setItem('size', '2');
     if (!savedBallColor) localStorage.setItem('ballColor', '0');
     if (!savedBgColor) localStorage.setItem('bgColor', '240');
-    if (!savedBgIntensity) localStorage.setItem('bgIntensity', '10');
+    if (!savedBgIntensity) localStorage.setItem('bgIntensity', '50');
     
     // Apply saved settings by dispatching events
     if (savedVelocity) {
@@ -116,7 +116,7 @@ const SetVelocityChangeEvent = () => {
     const velocityPlus = document.getElementById("velocityplus");
     
     const updateVelocity = (newVelocity) => {
-        currentVelocity = Math.max(0.25, Math.min(25, newVelocity));
+        currentVelocity = Math.max(0, Math.min(25, newVelocity));
         localStorage.setItem('velocity', currentVelocity.toString());
         window.dispatchEvent(new CustomEvent('Game:VelocityValueChanged', {
             detail: { velocity: currentVelocity }
@@ -221,39 +221,48 @@ const SetBackgroundColorChangeEvent = () => {
     const bgColorMinus = document.getElementById("bgcolorminus");
     const bgColorPlus = document.getElementById("bgcolorplus");
     
+    // Predefined colors including black and white
+    const colors = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360]; // 360 = white, 0 = black
+    let currentColorIndex = colors.indexOf(currentBgColor);
+    if (currentColorIndex === -1) currentColorIndex = 8; // Default to blue (240)
+    
     const updateBgColor = (newColor) => {
-        currentBgColor = Math.max(0, Math.min(360, newColor));
+        currentBgColor = newColor;
         localStorage.setItem('bgColor', currentBgColor.toString());
         window.dispatchEvent(new CustomEvent('Game:BackgroundColorValueChanged', {
             detail: { hue: currentBgColor }
         }));
     };
     
-    // Minus button
+    // Minus button - cycle through colors
     bgColorMinus.addEventListener("click", () => {
-        updateBgColor(currentBgColor - 30);
+        currentColorIndex = (currentColorIndex - 1 + colors.length) % colors.length;
+        updateBgColor(colors[currentColorIndex]);
     });
     
     bgColorMinus.addEventListener("touchstart", (e) => {
         e.preventDefault();
         e.stopPropagation();
-        updateBgColor(currentBgColor - 30);
+        currentColorIndex = (currentColorIndex - 1 + colors.length) % colors.length;
+        updateBgColor(colors[currentColorIndex]);
     });
     
-    // Plus button
+    // Plus button - cycle through colors
     bgColorPlus.addEventListener("click", () => {
-        updateBgColor(currentBgColor + 30);
+        currentColorIndex = (currentColorIndex + 1) % colors.length;
+        updateBgColor(colors[currentColorIndex]);
     });
     
     bgColorPlus.addEventListener("touchstart", (e) => {
         e.preventDefault();
         e.stopPropagation();
-        updateBgColor(currentBgColor + 30);
+        currentColorIndex = (currentColorIndex + 1) % colors.length;
+        updateBgColor(colors[currentColorIndex]);
     });
 };
 
 const SetBackgroundIntensityChangeEvent = () => {
-    let currentIntensity = parseInt(localStorage.getItem('bgIntensity')) || 10;
+    let currentIntensity = parseInt(localStorage.getItem('bgIntensity')) || 50;
     const bgIntensityMinus = document.getElementById("bgintensityminus");
     const bgIntensityPlus = document.getElementById("bgintensityplus");
     

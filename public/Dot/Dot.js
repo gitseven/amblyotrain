@@ -50,7 +50,16 @@ export class Dot extends GameElement {
     set BackgroundColor(value) {
         document.body.style.setProperty("--bg-hue", value.toString());
         // Update background color immediately
-        document.body.style.backgroundColor = `hsl(${value}, 70%, ${this.BackgroundIntensity}%)`;
+        if (value === 0) {
+            // Black
+            document.body.style.backgroundColor = `hsl(0, 0%, 0%)`;
+        } else if (value === 360) {
+            // White
+            document.body.style.backgroundColor = `hsl(0, 0%, 100%)`;
+        } else {
+            // Regular colors
+            document.body.style.backgroundColor = `hsl(${value}, 70%, ${this.BackgroundIntensity}%)`;
+        }
     }
     get BackgroundIntensity() {
         return parseFloat(getComputedStyle(document.body).getPropertyValue("--bg-intensity"));
@@ -58,7 +67,16 @@ export class Dot extends GameElement {
     set BackgroundIntensity(value) {
         document.body.style.setProperty("--bg-intensity", value.toString());
         // Update background color immediately
-        document.body.style.backgroundColor = `hsl(${this.BackgroundColor}, 70%, ${value}%)`;
+        if (this.BackgroundColor === 0) {
+            // Black
+            document.body.style.backgroundColor = `hsl(0, 0%, 0%)`;
+        } else if (this.BackgroundColor === 360) {
+            // White
+            document.body.style.backgroundColor = `hsl(0, 0%, 100%)`;
+        } else {
+            // Regular colors
+            document.body.style.backgroundColor = `hsl(${this.BackgroundColor}, 70%, ${value}%)`;
+        }
     }
     DotUpdate(dTime) {
         this.dTime = dTime;
